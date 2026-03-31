@@ -364,6 +364,48 @@
             margin-top: 8px;
         }
 
+        /* Download button */
+        .download-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--white);
+            border: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(26, 26, 46, 0.35);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(26, 26, 46, 0.45);
+        }
+
+        .download-btn:active {
+            transform: translateY(0);
+        }
+
+        .download-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        .download-btn:disabled {
+            opacity: 0.7;
+            cursor: wait;
+        }
+
         /* Print */
         @media print {
             body {
@@ -373,6 +415,9 @@
             .cv-container {
                 box-shadow: none;
                 border-radius: 0;
+            }
+            .download-btn {
+                display: none;
             }
         }
 
@@ -557,6 +602,61 @@
     </div>
 
 </div>
+
+<!-- Download Button -->
+<button class="download-btn" onclick="downloadPDF()" id="downloadBtn">
+    <svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zm7-18v12.17l3.59-3.58L17 12l-5 5-5-5 1.41-1.41L12 14.17V2z"/></svg>
+    Descargar PDF
+</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+    async function downloadPDF() {
+        const btn = document.getElementById('downloadBtn');
+        btn.disabled = true;
+        btn.innerHTML = '<svg viewBox="0 0 24 24" style="animation: spin 1s linear infinite"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg> Generando...';
+
+        const style = document.createElement('style');
+        style.textContent = '@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }';
+        document.head.appendChild(style);
+
+        try {
+            const element = document.querySelector('.cv-container');
+            const canvas = await html2canvas(element, {
+                scale: 2,
+                useCORS: true,
+                backgroundColor: '#ffffff',
+                logging: false
+            });
+
+            const { jsPDF } = window.jspdf;
+            const imgWidth = 210; // A4 width in mm
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+
+            // If content is taller than one page, fit to page
+            const pageHeight = 297; // A4 height in mm
+            if (imgHeight > pageHeight) {
+                const ratio = pageHeight / imgHeight;
+                const fitWidth = imgWidth * ratio;
+                const offsetX = (imgWidth - fitWidth) / 2;
+                pdf.addImage(canvas.toDataURL('image/png'), 'PNG', offsetX, 0, fitWidth, pageHeight);
+            } else {
+                pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, imgWidth, imgHeight);
+            }
+
+            pdf.save('CV-Javier-Moyano.pdf');
+        } catch (err) {
+            alert('Error al generar el PDF. Intentá de nuevo.');
+            console.error(err);
+        }
+
+        btn.disabled = false;
+        btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zm7-18v12.17l3.59-3.58L17 12l-5 5-5-5 1.41-1.41L12 14.17V2z"/></svg> Descargar PDF';
+        style.remove();
+    }
+</script>
 
 </body>
 </html>
