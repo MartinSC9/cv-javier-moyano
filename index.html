@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Javier Moyano</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a1a2e;
+            --accent: #0f3460;
+            --highlight: #e94560;
+            --light-bg: #f8f9fa;
+            --text: #2d2d2d;
+            --text-light: #6c757d;
+            --border: #dee2e6;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #e9ecef;
+            color: var(--text);
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .cv-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--white);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: var(--white);
+            padding: 50px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: rgba(233, 69, 96, 0.08);
+            border-radius: 50%;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+
+        .header .subtitle {
+            font-size: 1.05rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.75);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .contact-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .contact-item svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--highlight);
+            flex-shrink: 0;
+        }
+
+        .contact-item a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            color: var(--white);
+            text-decoration: underline;
+        }
+
+        /* Body layout */
+        .cv-body {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+        }
+
+        /* Main column */
+        .main-col {
+            padding: 40px 45px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--light-bg);
+            padding: 40px 30px;
+            border-left: 1px solid var(--border);
+        }
+
+        /* Section titles */
+        .section-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--accent);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--highlight);
+            display: inline-block;
+        }
+
+        .sidebar .section-title {
+            font-size: 0.75rem;
+        }
+
+        /* Profile */
+        .profile-text {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 35px;
+        }
+
+        /* Experience */
+        .experience-block {
+            margin-bottom: 30px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .experience-block::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 6px;
+            width: 8px;
+            height: 8px;
+            background: var(--highlight);
+            border-radius: 50%;
+        }
+
+        .experience-block::after {
+            content: '';
+            position: absolute;
+            left: 3.5px;
+            top: 18px;
+            width: 1px;
+            height: calc(100% - 10px);
+            background: var(--border);
+        }
+
+        .experience-block:last-of-type::after {
+            display: none;
+        }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 4px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .exp-company {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .exp-date {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            background: var(--light-bg);
+            padding: 2px 12px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        .exp-role {
+            font-size: 0.88rem;
+            color: var(--highlight);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .exp-tasks {
+            list-style: none;
+            padding: 0;
+        }
+
+        .exp-tasks li {
+            font-size: 0.88rem;
+            color: var(--text);
+            padding: 4px 0;
+            padding-left: 18px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .exp-tasks li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 12px;
+            width: 6px;
+            height: 1.5px;
+            background: var(--highlight);
+        }
+
+        /* Sidebar sections */
+        .sidebar-section {
+            margin-bottom: 32px;
+        }
+
+        /* Education */
+        .edu-item {
+            margin-bottom: 12px;
+        }
+
+        .edu-title {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .edu-detail {
+            font-size: 0.82rem;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        /* Skills */
+        .skill-category {
+            margin-bottom: 16px;
+        }
+
+        .skill-category-title {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .skill-tag {
+            font-size: 0.75rem;
+            background: var(--white);
+            border: 1px solid var(--border);
+            padding: 4px 12px;
+            border-radius: 20px;
+            color: var(--text);
+            transition: all 0.2s;
+        }
+
+        .skill-tag:hover {
+            border-color: var(--highlight);
+            color: var(--highlight);
+        }
+
+        /* Languages */
+        .lang-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .lang-name {
+            font-size: 0.88rem;
+            font-weight: 500;
+        }
+
+        .lang-level {
+            font-size: 0.78rem;
+            color: var(--text-light);
+        }
+
+        .lang-bar {
+            width: 100%;
+            height: 4px;
+            background: var(--border);
+            border-radius: 4px;
+            margin-top: 4px;
+            margin-bottom: 14px;
+        }
+
+        .lang-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--highlight));
+        }
+
+        /* Availability */
+        .availability {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .availability-title {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+
+        .availability-detail {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(233, 69, 96, 0.1);
+            color: var(--highlight);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 4px;
+            margin-top: 8px;
+        }
+
+        /* Print */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .cv-container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .cv-body {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                border-left: none;
+                border-top: 1px solid var(--border);
+            }
+            .header {
+                padding: 35px 30px;
+            }
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            .main-col {
+                padding: 30px 25px;
+            }
+            .contact-row {
+                gap: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="cv-container">
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="header-content">
+            <h1>Javier Moyano</h1>
+            <div class="subtitle">Atención al Cliente &middot; Repositor &middot; Depósito</div>
+            <div class="contact-row">
+                <div class="contact-item">
+                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    <a href="mailto:javier.moyano@gmail.com">javier.moyano@gmail.com</a>
+                </div>
+                <div class="contact-item">
+                    <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.02l-2.2 2.2z"/></svg>
+                    <span>351 323 5105</span>
+                </div>
+                <div class="contact-item">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+                    <span>Córdoba Capital, Argentina</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cv-body">
+
+        <!-- MAIN COLUMN -->
+        <div class="main-col">
+
+            <!-- PERFIL -->
+            <div class="section-title">Perfil Profesional</div>
+            <p class="profile-text">
+                Más de 2 años de experiencia en atención al cliente, reposición de productos y gestión de depósito.
+                Perfil organizado y orientado al cumplimiento de metas diarias de stock y exhibición.
+                Eficiente en el control de inventarios y en la coordinación de tareas operativas en entornos de alta demanda.
+            </p>
+
+            <!-- EXPERIENCIA -->
+            <div class="section-title">Experiencia Laboral</div>
+
+            <div class="experience-block">
+                <div class="exp-header">
+                    <span class="exp-company">Indonesia Supermercados</span>
+                    <span class="exp-date">Mar 2024 — Feb 2025</span>
+                </div>
+                <div class="exp-role">Vendedor / Repositor</div>
+                <ul class="exp-tasks">
+                    <li>Control de ingreso de mercadería y organización integral del depósito.</li>
+                    <li>Reposición estratégica de productos en salón para maximizar la visibilidad y rotación de ventas.</li>
+                    <li>Realización de inventarios periódicos y gestión proactiva de faltantes, reduciendo quiebres de stock.</li>
+                    <li>Atención al cliente en salón, asesorando sobre productos y resolviendo consultas.</li>
+                </ul>
+            </div>
+
+            <div class="experience-block">
+                <div class="exp-header">
+                    <span class="exp-company">YPF / Axion Energy</span>
+                    <span class="exp-date">Jul 2023 — Mar 2024</span>
+                </div>
+                <div class="exp-role">Atención al Cliente / Depósito</div>
+                <ul class="exp-tasks">
+                    <li>Recepción de proveedores y descarga de insumos y lubricantes.</li>
+                    <li>Mantenimiento del orden y limpieza en el área de depósito y playa de servicio.</li>
+                    <li>Control de stock y reposición inmediata de productos de tienda.</li>
+                    <li>Manejo de caja y atención directa al público en turnos rotativos.</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+
+            <!-- FORMACIÓN -->
+            <div class="sidebar-section">
+                <div class="section-title">Formación</div>
+                <div class="edu-item">
+                    <div class="edu-title">Secundario Completo</div>
+                    <div class="edu-detail">IPEM 183 Pedro B. Palacios</div>
+                    <div class="edu-detail">Especialidad: Ciencias Sociales</div>
+                </div>
+            </div>
+
+            <!-- HABILIDADES -->
+            <div class="sidebar-section">
+                <div class="section-title">Habilidades</div>
+
+                <div class="skill-category">
+                    <div class="skill-category-title">Herramientas</div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Excel</span>
+                        <span class="skill-tag">Control de stock</span>
+                        <span class="skill-tag">Posnet</span>
+                        <span class="skill-tag">Facturación</span>
+                        <span class="skill-tag">Cierre de caja</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-category-title">Operativas</div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Inventarios</span>
+                        <span class="skill-tag">Recepción de mercadería</span>
+                        <span class="skill-tag">Control de remitos</span>
+                        <span class="skill-tag">Organización de depósito</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-category-title">Interpersonales</div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Atención al cliente</span>
+                        <span class="skill-tag">Trabajo en equipo</span>
+                        <span class="skill-tag">Proactividad</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IDIOMAS -->
+            <div class="sidebar-section">
+                <div class="section-title">Idiomas</div>
+                <div class="lang-item">
+                    <span class="lang-name">Español</span>
+                    <span class="lang-level">Nativo</span>
+                </div>
+                <div class="lang-bar"><div class="lang-bar-fill" style="width: 100%"></div></div>
+
+                <div class="lang-item">
+                    <span class="lang-name">Inglés</span>
+                    <span class="lang-level">Básico (A2)</span>
+                </div>
+                <div class="lang-bar"><div class="lang-bar-fill" style="width: 25%"></div></div>
+            </div>
+
+            <!-- DISPONIBILIDAD -->
+            <div class="sidebar-section">
+                <div class="section-title">Disponibilidad</div>
+                <div class="availability">
+                    <div class="availability-title">Horaria</div>
+                    <div class="availability-detail">Full-time / Part-time</div>
+                    <div class="availability-detail">Turnos rotativos y fines de semana</div>
+                    <span class="badge">Disponibilidad inmediata</span>
+                </div>
+            </div>
+
+            <!-- REFERENCIAS -->
+            <div class="sidebar-section">
+                <div class="section-title">Referencias</div>
+                <div class="edu-detail">Disponibles a pedido</div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
